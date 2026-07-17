@@ -14,6 +14,12 @@ model classes.
 ## Install
 
 ```bash
+pip install anota-api
+```
+
+The package is published to [PyPI](https://pypi.org/project/anota-api/) on each GitHub release, so `pip install anota-api` becomes available once the first release publish has run. Until then, install straight from the repository:
+
+```bash
 pip install git+https://github.com/anotacloud/anota-api-python.git
 ```
 
