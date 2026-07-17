@@ -1,0 +1,22 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "anota-api"
+version = "1.0.0"
+description = "Official Python client for the anota API — forms, submissions, logic, webhooks."
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+authors = [{ name = "anota", email = "hola@anota.cloud" }]
+keywords = ["anota", "forms", "api-client", "sdk"]
+dependencies = []
+
+[project.urls]
+Homepage = "https://anota.cloud/developers"
+Documentation = "https://anota.cloud/developers"
+Source = "https://github.com/anotacloud/anota-api-python"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/anota_api"]
