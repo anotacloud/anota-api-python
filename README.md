@@ -90,6 +90,8 @@ Every method returns the parsed JSON response (a `dict`, `list`, or `None` for e
 | 24 | `add_webhook(form_id, url)` | `POST /forms/{form_id}/webhooks` |
 | 25 | `delete_webhook(form_id, webhook_id)` | `DELETE /forms/{form_id}/webhooks/{webhook_id}` |
 
+**Webhook signing secrets are shown once.** `add_webhook(form_id, url)` returns the full signing `secret` (`whsec_…`) in its response (`id`, `formId`, `url`, `secret`, `note`); store it then. `list_webhooks(form_id)` never returns it: each row carries `secretHint` (`whsec_…` plus the last 4 characters, or just `whsec_…` for short secrets) and `secretNote` instead of `secret`. To replace a lost secret, delete the webhook and add it again. See [CHANGELOG.md](CHANGELOG.md).
+
 `fields`/`field` are plain dicts: `{type, label, required?, options?, rows?, columns?}`.
 `rules`/`rule`: `{match: "all"|"any", if: [...], then: [...]}`. `answers` is a dict keyed
 by field id, with string or list-of-string values.

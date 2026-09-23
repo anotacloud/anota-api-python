@@ -85,6 +85,8 @@ para cuerpos vacíos).
 | 24 | `add_webhook(form_id, url)` | `POST /forms/{form_id}/webhooks` |
 | 25 | `delete_webhook(form_id, webhook_id)` | `DELETE /forms/{form_id}/webhooks/{webhook_id}` |
 
+**El secreto de firma del webhook se muestra una sola vez.** `add_webhook(form_id, url)` devuelve el `secret` completo (`whsec_…`) en su respuesta (`id`, `formId`, `url`, `secret`, `note`): guárdalo en ese momento. `list_webhooks(form_id)` nunca lo devuelve: cada fila trae `secretHint` (`whsec_…` más los últimos 4 caracteres, o solo `whsec_…` si el secreto es corto) y `secretNote` en lugar de `secret`. Si lo pierdes, elimina el webhook y vuelve a agregarlo para obtener un secreto nuevo. Consulta [CHANGELOG.md](CHANGELOG.md).
+
 `fields`/`field` son diccionarios simples: `{type, label, required?, options?, rows?, columns?}`.
 `rules`/`rule`: `{match: "all"|"any", if: [...], then: [...]}`. `answers` es un diccionario
 con las claves de los campos (field id) y valores de tipo string o lista de strings.

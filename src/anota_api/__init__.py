@@ -11,7 +11,7 @@ import urllib.parse
 import urllib.request
 
 __all__ = ["AnotaClient", "AnotaApiError"]
-__version__ = "1.0.0"
+__version__ = "2.0.0"
 
 DEFAULT_BASE_URL = "https://anota.cloud/api/v1"
 
@@ -168,9 +168,20 @@ class AnotaClient:
 
     # ----- webhooks -----
     def list_webhooks(self, form_id):
+        """Lists a form's webhooks. Each row has id, url, events, enabled, secretHint and secretNote.
+
+        The full signing secret is never returned here: secretHint is a masked form
+        ("whsec_…" + last 4 characters, or just "whsec_…" for short secrets) that identifies
+        which secret a receiver holds, and secretNote explains the show-once rule. To replace a
+        lost secret, delete the webhook and add it again.
+        """
         return self._request("GET", "/forms/" + form_id + "/webhooks")
 
     def add_webhook(self, form_id, url):
+        """Registers a webhook URL that receives submission.created events. The response
+        (id, formId, url, secret, note) is the ONLY place the full signing secret appears:
+        store it now, it cannot be read back later (list_webhooks shows only secretHint).
+        """
         return self._request("POST", "/forms/" + form_id + "/webhooks", {"url": url})
 
     def delete_webhook(self, form_id, webhook_id):
